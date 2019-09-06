@@ -35,8 +35,7 @@ final class FavoritesCoordinator {
     }
     
     private func showFavorites() {
-        print("showFavorites")
-        let viewController = screens.createRecipesListViewController(delegate: self, with: .favorite)
+        let viewController = screens.createRecipesListViewController(ingredients: "", delegate: self, with: .favorite)
         presenter.viewControllers = [viewController]
     }
     
@@ -51,10 +50,9 @@ extension FavoritesCoordinator: RecipesListViewModelDelegate {
         showFavoritesDetail(recipe: recipe)
     }
     
-    func noRecipes(message: Message) {
+    func alertNoRecipe(message: Message) {
         print(message)
     }
-    
     
 }
 

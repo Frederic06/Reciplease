@@ -10,15 +10,12 @@
 import Foundation
 
 protocol ResearchViewModelDelegate: class {
-    func didReceiveRecipes(recipes: [RecipeItem])
-    func noRecipes(message: Message)
+    func didSelectIngredients(ingredients: String)
 }
 
 final class SearchViewModel {
     
     // MARK: - Properties
-    private let repository: SearchRepositoryType
-
     private weak var delegate: ResearchViewModelDelegate?
     
     private var item: RecipeItem?
@@ -30,8 +27,7 @@ final class SearchViewModel {
     }
     
     // MARK: - Init
-    init(repository: SearchRepositoryType, delegate: ResearchViewModelDelegate?) {
-        self.repository = repository
+    init(delegate: ResearchViewModelDelegate?) {
         self.delegate = delegate
     }
     
@@ -89,18 +85,7 @@ final class SearchViewModel {
         let ingredientListString = ingredientList.joined(separator:" ")
         isLoading?(true)
         
-        repository.getRecipes(ingredients: ingredientListString,
-                success: {[weak self] recipes in
-                self?.isLoading?(false)
-                self?.delegate?.didReceiveRecipes(recipes: recipes)
-            },
-                onError: { [weak self] errorMessage in
-                    let message = Message(title: "Title",
-                                          content: "Content")
-                    self?.delegate?.noRecipes(message: message)
-                    
-                self?.isLoading?(false)
-                // Here we delegate an alert to the user
-        })
+       self.delegate?.didSelectIngredients(ingredients: ingredientListString)
+        
     }
 }

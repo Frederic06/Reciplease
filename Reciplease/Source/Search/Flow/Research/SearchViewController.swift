@@ -35,11 +35,6 @@ final class SearchViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.hideKeyboardWhenTappedAround()
-        self.activityIndicator.color = #colorLiteral(red: 0.1704318452, green: 0.5921696838, blue: 0.7852094769, alpha: 1)
-        self.activityIndicator.transform = CGAffineTransform(scaleX: 3, y: 3)
-        self.activityIndicator.hidesWhenStopped = true
-        
-        
         self.ingredientsList.dataSource = ingredientListDataSource
 
 //          bind(to: viewModel)

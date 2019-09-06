@@ -37,6 +37,8 @@ final class RecipeDetailViewController: UIViewController {
         super.viewDidLoad()
         self.hideKeyboardWhenTappedAround()
         
+        configureUI()
+        
         self.recipeDescription.dataSource = recipeDetailDataSource
         
         bind(to: viewModel)
@@ -45,11 +47,14 @@ final class RecipeDetailViewController: UIViewController {
     }
 
     @objc private func didPressFavorite() {
-//        viewmodel.didPressFavorite()
+        viewModel.clickedOnFavoriteStar()
     }
     
     private func configureUI() {
+        
         self.navigationController?.navigationBar.backgroundColor = #colorLiteral(red: 0.7063648105, green: 0.4434646964, blue: 0.2221123874, alpha: 1)
+        let button = UIBarButtonItem(barButtonSystemItem: .bookmarks, target: self, action: #selector(didPressFavorite))
+        self.navigationItem.rightBarButtonItem = button
         
         
         //        let infoButton = UIButton(type: .infoLight)

@@ -10,77 +10,50 @@ import Foundation
 
 protocol RecipesListViewModelDelegate: class {
     func didChoseRecipe(recipe: RecipeItem)
+    func alertNoRecipe(message: Message)
 }
-
-protocol RecipesListRepositoryType: class {
-    func getRecipes(callback: @escaping (Result<[RecipeItem]>) -> Void)
-}
-
-//final class RecipesListRepository: RecipesListRepositoryType {
-//
-//    private let network: NetworkRequestType
-//
-//    private let coredataContext: CoredataContextType
-//    
-//    enum RequestType {
-//        case network
-//        case persistence
-//    }
-//
-//    let requestType: RequestType
-//
-//    init(requestType: RequestType) {
-//        self.requestType = requestType
-//        
-//    }
-//
-//    func getRecipes(callback: @escaping (Result<[RecipeItem]>) -> Void) {
-//        switch requestType {
-//        case .network:
-//            nnetwork.
-//        case .persistence:
-//            
-//        }
-//    }
-//}
 
 class RecipesListViewModel {
     
     // MARK: - Properties
     private weak var delegate: RecipesListViewModelDelegate?
     
-    private weak var repository: RecipesListRepositoryType?
+    private var repository: RecipeRepositoryType
     
-    private var recipes: [RecipeItem] = []
+    private var recipes: [RecipeItem] = [] {
+        didSet {
+            incomingRecipes?(recipes)
+            isLoading?(false)
+        }
+    }
 
     // MARK: - Init
 
-    init(recipes: [RecipeItem]?, delegate: RecipesListViewModelDelegate, repository: RecipesListRepositoryType?) {
+    init(ingredients: String, delegate: RecipesListViewModelDelegate, repository: RecipeRepositoryType) {
+        isLoading?(true)
         self.delegate = delegate
-        
-        if let recipes = recipes {
-            self.recipes = recipes
-        } else {
-            guard let repository = repository else { return }
-            self.repository = repository
-            repository.getRecipes { (result) in
-//                switch result {
-//                case .succes(value: recipes):
-//                case .error(error: <#T##Error#>)
-//                }
-                //                self.recipes = recipes
-                
-            }
-        }
-    }
-    
-    func viewDidLoad() {
-        incomingRecipes?(self.recipes)
-    }
+        self.repository = repository
+            
+        repository.getRecipes(ingredients: ingredients,
+                                success: { [weak self] recipes in
+                                    switch recipes {
+                                    case .success(value: let recipeArray):
+                                        self?.recipes = recipeArray
+                                    case .error:
+                                        print("error")
+                                    }
 
+            }, onError: { [weak self] error in
+                print(error)
+        })
+    }
     // MARK: - Output
-//
+
     var incomingRecipes: (([RecipeItem]) -> Void)?
+    
+    var isLoading: ((Bool) -> Void)?
+    
+    var output: ((String) -> Void)?
 
     // MARK: - Input
     

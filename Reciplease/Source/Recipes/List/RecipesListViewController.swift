@@ -14,6 +14,7 @@ final class RecipesListViewController: UIViewController {
     
     @IBOutlet weak var recipesList: UITableView!
 
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     // MARK: - Properties
 
     var viewModel: RecipesListViewModel!
@@ -26,15 +27,16 @@ final class RecipesListViewController: UIViewController {
         super.viewDidLoad()
         self.hideKeyboardWhenTappedAround()
         
+        self.activityIndicator.color = #colorLiteral(red: 0.8078431487, green: 0.02745098062, blue: 0.3333333433, alpha: 1)
+        self.activityIndicator.transform = CGAffineTransform(scaleX: 3, y: 3)
+        self.activityIndicator.hidesWhenStopped = true
+        
+        
         self.recipesList.dataSource = recipeDataSource
         self.recipesList.delegate = recipeDataSource
         
         bind(to: viewModel)
         bind(to: recipeDataSource)
-        
-        viewModel.viewDidLoad()
-
-//        bind(to: viewModel)
     }
     
     private func bind(to source: RecipesListDataSource) {
@@ -44,13 +46,25 @@ final class RecipesListViewController: UIViewController {
     private func bind(to viewModel: RecipesListViewModel) {
         
         viewModel.incomingRecipes = { [weak self] recipes in
+            print("Incoming Recipes")
             DispatchQueue.main.async {
             self?.recipeDataSource.update(foundRecipes: recipes)
             self?.recipesList.reloadData()
             }
         }
+        
+        viewModel.isLoading = { [weak self] state in
+            print("Incoming State")
+            switch state {
+            case true:
+                self?.activityIndicator.startAnimating()
+            case false:
+                self?.activityIndicator.stopAnimating()
+            }
+        }
+        
+        viewModel.output = { [weak self] text in
+            print(text)
+        }
     }
-    
-    // MARK: - Actions
-    
 }

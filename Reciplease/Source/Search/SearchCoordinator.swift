@@ -34,8 +34,8 @@ final class SearchCoordinator {
         presenter.viewControllers = [viewController]
     }
     
-    private func showRecipes(recipes: [RecipeItem]) {
-        let viewController = screens.createRecipesListViewController(delegate: self, with: .search(recipes: recipes))
+    private func showRecipes(ingredients: String) {
+        let viewController = screens.createRecipesListViewController(ingredients: ingredients, delegate: self, with: .search)
         presenter.pushViewController(viewController, animated: true)
     }
     
@@ -51,13 +51,13 @@ final class SearchCoordinator {
 }
 
 extension SearchCoordinator: ResearchViewModelDelegate {
+    func didSelectIngredients(ingredients: String) {
+        showRecipes(ingredients: ingredients)
+    }
+    
     func noRecipes(message: Message) {
         //        showAlert(for: .noRecipes(message: message))
         print("NO RECIPE")
-    }
-    
-    func didReceiveRecipes(recipes: [RecipeItem]) {
-        showRecipes(recipes: recipes)
     }
 }
 
@@ -71,6 +71,9 @@ extension SearchCoordinator: RecipesListViewModelDelegate {
         
         showRecipesDetail(recipe: recipe)
     }
+    func alertNoRecipe(message: Message) {
+        print(message)
+    }
 }
 
 extension SearchCoordinator: RecipeDetaileViewModelType {
@@ -79,7 +82,7 @@ extension SearchCoordinator: RecipeDetaileViewModelType {
         let recipeObject = RecipeObject(context: AppDelegate.viewContext)
         recipeObject.recipeImage = recipe.imageURLString
         recipeObject.recipeName = recipe.name
-        
+        print(recipeObject)
         try? AppDelegate.viewContext.save()
     }
     

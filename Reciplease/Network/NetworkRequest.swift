@@ -27,7 +27,7 @@ final class NetworkRequest: NetworkRequestType {
                 completion(.error(error: error))
             } else if let data = response.data {
                 guard let recipes = try? self.jsonDecoder.decode(T.self, from: data) else { return }
-                completion(.succes(value: recipes))
+                completion(.success(value: recipes))
             } else {
                 completion(.error(error: NetworkError.unknown))
             }

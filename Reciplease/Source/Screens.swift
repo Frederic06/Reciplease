@@ -20,8 +20,7 @@ extension Screens {
     func createResearchViewController(delegate: ResearchViewModelDelegate?) -> UIViewController {
         // For creating a view, we call instance of storyBoard, with identifier we cast with the type we want
         let viewController = storyboard.instantiateViewController(withIdentifier: "ResearchVC") as! SearchViewController
-        let repository = SearchRepository()
-        let viewModel = SearchViewModel(repository: repository, delegate: delegate)
+        let viewModel = SearchViewModel(delegate: delegate)
         viewController.viewModel = viewModel
         return viewController
     }
@@ -30,22 +29,25 @@ extension Screens {
 // MARK: - Recipe List
 
 enum RecipeListType {
-    case search(recipes: [RecipeItem])
+    case search
     case favorite
 }
 
 extension Screens {
-    func createRecipesListViewController(delegate: RecipesListViewModelDelegate, with listType: RecipeListType) -> UIViewController {
+    func createRecipesListViewController(ingredients: String, delegate: RecipesListViewModelDelegate, with listType: RecipeListType) -> UIViewController {
         // Same VC for RecipesList or FavoriteList (so only one UIViewController in Storyboard -> One ID), differs only where the datas come from : API in the case of search, data persistence in case of favorite
         let viewController = storyboard.instantiateViewController(withIdentifier: "RecipesListViewController") as! RecipesListViewController
         switch listType {
         case .favorite:
-            let repository = FavoriteRepository()
-            let viewModel = RecipesListViewModel(recipes: nil, delegate: delegate, repository: repository)
+            let network = NetworkRequest()
+            let repository = RecipeRepository(requestType: .persistence, network: network)
+            let viewModel = RecipesListViewModel(ingredients: ingredients, delegate: delegate, repository: repository)
             viewController.viewModel = viewModel
-            break // Instanciate the correct viewModel
-        case .search(recipes: let recipes):
-            let viewModel = RecipesListViewModel(recipes: recipes, delegate: delegate, repository: nil)
+            
+        case .search:
+            let network = NetworkRequest()
+            let repository = RecipeRepository(requestType: .network, network: network)
+            let viewModel = RecipesListViewModel(ingredients: ingredients, delegate: delegate, repository: repository)
             viewController.viewModel = viewModel
         }
         return viewController

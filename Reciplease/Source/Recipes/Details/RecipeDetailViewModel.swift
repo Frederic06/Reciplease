@@ -48,7 +48,6 @@ final class RecipeDetailViewModel {
         let recipeObject = RecipeObject(context: AppDelegate.viewContext)
         recipeObject.recipeImage = recipe.imageURLString
         recipeObject.recipeName = recipe.name
-        
         try? AppDelegate.viewContext.save()
     }
     
