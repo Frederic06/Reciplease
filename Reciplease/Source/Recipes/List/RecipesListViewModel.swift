@@ -33,7 +33,6 @@ class RecipesListViewModel {
         isLoading?(true)
         self.delegate = delegate
         self.repository = repository
-            
         repository.getRecipes(ingredients: ingredients,
                                 success: { [weak self] recipes in
                                     switch recipes {
@@ -53,14 +52,17 @@ class RecipesListViewModel {
     
     var isLoading: ((Bool) -> Void)?
     
-    var output: ((String) -> Void)?
-
-    // MARK: - Input
+    var outlet: ((String) -> Void)?
+    
+    // MARK: - Methods
+    
+    func viewDidLoad() {
+        incomingRecipes?(recipes)
+    }
     
     func didSelect(recipe: RecipeItem) {
         delegate?.didChoseRecipe(recipe: recipe)
     }
-
 }
 
 

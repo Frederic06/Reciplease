@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina5_5" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -22,79 +22,123 @@
                                 <rect key="frame" x="197" y="358" width="20" height="20"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </activityIndicatorView>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="iX1-qb-03x">
-                                <rect key="frame" x="0.0" y="283" width="414" height="289"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="iX1-qb-03x">
+                                <rect key="frame" x="0.0" y="283" width="414" height="317"/>
+                                <color key="backgroundColor" red="0.66919040679931641" green="0.45539098978042603" blue="0.26383954286575317" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="ingredientCell" id="Ffd-Bq-6bP">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="ingredientCell" id="Ffd-Bq-6bP">
                                         <rect key="frame" x="0.0" y="28" width="414" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Ffd-Bq-6bP" id="cIG-Kb-vBF">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </tableViewCellContentView>
-                                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <color key="backgroundColor" red="0.66919040679999997" green="0.45539098979999998" blue="0.2638395429" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="P8n-4f-QUB">
-                                <rect key="frame" x="20" y="44" width="374" height="124"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="P8n-4f-QUB">
+                                <rect key="frame" x="0.0" y="20" width="414" height="176"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="agd-4G-xiu">
-                                        <rect key="frame" x="75" y="20" width="218" height="21"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <nil key="textColor"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="agd-4G-xiu">
+                                        <rect key="frame" x="57" y="20" width="300" height="25"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="300" id="Dnc-nF-CVm"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="Chalkduster" family="Chalkduster" pointSize="20"/>
+                                        <color key="textColor" red="0.66919040679999997" green="0.45539098979999998" blue="0.2638395429" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="bPg-q6-s5b">
-                                        <rect key="frame" x="20" y="74" width="97" height="30"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="bPg-q6-s5b">
+                                        <rect key="frame" x="20" y="74" width="200" height="30"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="200" id="9Tc-ak-qUQ"/>
+                                        </constraints>
                                         <nil key="textColor"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WyF-zX-WZh">
-                                        <rect key="frame" x="286" y="74" width="46" height="30"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <color key="backgroundColor" red="0.25088781118392944" green="0.59239357709884644" blue="0.35048592090606689" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <state key="normal" title="Button"/>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WyF-zX-WZh">
+                                        <rect key="frame" x="268" y="74" width="100" height="40"/>
+                                        <color key="backgroundColor" red="0.66919040679931641" green="0.45539098978042603" blue="0.26383954286575317" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="100" id="MOO-IV-TS4"/>
+                                            <constraint firstAttribute="height" constant="40" id="d6a-Ym-C2f"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="Chalkduster" family="Chalkduster" pointSize="20"/>
+                                        <state key="normal" title="Button">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
                                         <connections>
                                             <action selector="addIngretientButton:" destination="Isi-Yg-B5l" eventType="touchUpInside" id="BeZ-qS-GZT"/>
                                         </connections>
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="WyF-zX-WZh" firstAttribute="top" secondItem="bPg-q6-s5b" secondAttribute="top" id="9mb-HL-1c5"/>
+                                    <constraint firstItem="agd-4G-xiu" firstAttribute="top" secondItem="P8n-4f-QUB" secondAttribute="top" constant="20" id="PNw-ck-sk7"/>
+                                    <constraint firstAttribute="trailing" secondItem="WyF-zX-WZh" secondAttribute="trailing" constant="46" id="U0m-lh-sfT"/>
+                                    <constraint firstItem="bPg-q6-s5b" firstAttribute="leading" secondItem="P8n-4f-QUB" secondAttribute="leading" constant="20" id="hKA-bT-UAK"/>
+                                    <constraint firstItem="WyF-zX-WZh" firstAttribute="top" secondItem="agd-4G-xiu" secondAttribute="bottom" constant="29" id="rz9-Z2-mQw"/>
+                                    <constraint firstItem="agd-4G-xiu" firstAttribute="centerX" secondItem="P8n-4f-QUB" secondAttribute="centerX" id="xkQ-dr-GfC"/>
+                                </constraints>
                             </view>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Gpb-ng-EdO">
-                                <rect key="frame" x="20" y="620" width="374" height="68"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" red="0.25088781119999998" green="0.59239357709999996" blue="0.35048592090000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <state key="normal" title="Button"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Gpb-ng-EdO">
+                                <rect key="frame" x="20" y="650" width="374" height="38"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <fontDescription key="fontDescription" name="Chalkduster" family="Chalkduster" pointSize="20"/>
+                                <state key="normal" title="Button">
+                                    <color key="titleColor" red="0.66919040679931641" green="0.45539098978042603" blue="0.26383954286575317" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                </state>
                                 <connections>
                                     <action selector="searchRecipesButton:" destination="Isi-Yg-B5l" eventType="touchUpInside" id="iFY-vU-fT2"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EMF-CG-PcX">
-                                <rect key="frame" x="20" y="215" width="243" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EMF-CG-PcX">
+                                <rect key="frame" x="82" y="215" width="250" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="250" id="tWH-mb-OGS"/>
+                                    <constraint firstAttribute="height" constant="21" id="zMA-Jo-f0D"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Chalkduster" family="Chalkduster" pointSize="20"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tkV-0a-Y7F">
-                                <rect key="frame" x="302" y="215" width="71" height="36"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" red="0.53720772266387939" green="0.53728616237640381" blue="0.53718304634094238" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <state key="normal" title="Button"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tkV-0a-Y7F">
+                                <rect key="frame" x="319" y="215" width="80" height="40"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="80" id="eaC-gU-rqe"/>
+                                    <constraint firstAttribute="height" constant="40" id="oS9-na-jyr"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Chalkduster" family="Chalkduster" pointSize="20"/>
+                                <state key="normal" title="Button">
+                                    <color key="titleColor" red="0.66919040679999997" green="0.45539098979999998" blue="0.2638395429" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                </state>
                                 <connections>
                                     <action selector="clearButton:" destination="Isi-Yg-B5l" eventType="touchUpInside" id="OfS-ru-A2e"/>
                                 </connections>
                             </button>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" red="0.66919040679931641" green="0.45539098978042603" blue="0.26383954286575317" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                        <constraints>
+                            <constraint firstItem="P8n-4f-QUB" firstAttribute="top" secondItem="4G3-4O-2n6" secondAttribute="top" id="2r8-TC-Aj7"/>
+                            <constraint firstItem="EMF-CG-PcX" firstAttribute="centerX" secondItem="AoL-ZC-m9x" secondAttribute="centerX" id="9co-T4-voQ"/>
+                            <constraint firstItem="4G3-4O-2n6" firstAttribute="trailing" secondItem="Gpb-ng-EdO" secondAttribute="trailing" constant="20" id="HkL-tb-rVn"/>
+                            <constraint firstItem="EMF-CG-PcX" firstAttribute="top" secondItem="tkV-0a-Y7F" secondAttribute="top" id="IpV-77-iQR"/>
+                            <constraint firstItem="iX1-qb-03x" firstAttribute="top" secondItem="EMF-CG-PcX" secondAttribute="bottom" constant="47" id="Jdo-Wt-wW0"/>
+                            <constraint firstItem="4G3-4O-2n6" firstAttribute="trailing" secondItem="tkV-0a-Y7F" secondAttribute="trailing" constant="15" id="JsL-0s-bO7"/>
+                            <constraint firstItem="EMF-CG-PcX" firstAttribute="top" secondItem="AoL-ZC-m9x" secondAttribute="top" constant="215" id="MHk-5I-Lgd"/>
+                            <constraint firstItem="iX1-qb-03x" firstAttribute="leading" secondItem="4G3-4O-2n6" secondAttribute="leading" id="UQN-4G-R1E"/>
+                            <constraint firstItem="Gpb-ng-EdO" firstAttribute="top" secondItem="iX1-qb-03x" secondAttribute="bottom" constant="50" id="YF9-kc-Top"/>
+                            <constraint firstItem="EMF-CG-PcX" firstAttribute="top" secondItem="P8n-4f-QUB" secondAttribute="bottom" constant="19" id="bBQ-wq-PNB"/>
+                            <constraint firstItem="4G3-4O-2n6" firstAttribute="bottom" secondItem="Gpb-ng-EdO" secondAttribute="bottom" constant="48" id="cj6-Yt-Zi2"/>
+                            <constraint firstItem="P8n-4f-QUB" firstAttribute="leading" secondItem="4G3-4O-2n6" secondAttribute="leading" id="f27-Ky-3l1"/>
+                            <constraint firstItem="Gpb-ng-EdO" firstAttribute="leading" secondItem="4G3-4O-2n6" secondAttribute="leading" constant="20" id="hMf-Eg-24O"/>
+                            <constraint firstItem="iX1-qb-03x" firstAttribute="trailing" secondItem="4G3-4O-2n6" secondAttribute="trailing" id="qx8-uK-SFh"/>
+                            <constraint firstItem="P8n-4f-QUB" firstAttribute="trailing" secondItem="4G3-4O-2n6" secondAttribute="trailing" id="zaM-tK-ynu"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="4G3-4O-2n6"/>
                     </view>
                     <connections>
@@ -120,9 +164,14 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="Lyj-1x-s7T">
-                                <rect key="frame" x="197" y="358" width="20" height="20"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <activityIndicatorView verifyAmbiguity="off" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="Lyj-1x-s7T">
+                                <rect key="frame" x="157" y="318" width="100" height="100"/>
+                                <color key="backgroundColor" red="1" green="0.14913141730000001" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="100" id="LuO-hf-v5h"/>
+                                    <constraint firstAttribute="height" constant="100" id="nGp-4I-mRU"/>
+                                </constraints>
+                                <color key="color" red="1" green="0.14913141730000001" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </activityIndicatorView>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="L42-W5-Yt9" customClass="I">
                                 <rect key="frame" x="0.0" y="20" width="414" height="716"/>
@@ -167,9 +216,11 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="L42-W5-Yt9" firstAttribute="bottom" secondItem="SVV-vk-gbg" secondAttribute="bottom" id="0SC-BY-OaT"/>
+                            <constraint firstItem="Lyj-1x-s7T" firstAttribute="centerX" secondItem="Dwj-L0-GxB" secondAttribute="centerX" id="2Ly-hz-eq9"/>
                             <constraint firstItem="L42-W5-Yt9" firstAttribute="top" secondItem="SVV-vk-gbg" secondAttribute="top" id="6WA-rm-1Ho"/>
                             <constraint firstItem="L42-W5-Yt9" firstAttribute="leading" secondItem="SVV-vk-gbg" secondAttribute="leading" id="LaS-Gp-SZy"/>
                             <constraint firstItem="L42-W5-Yt9" firstAttribute="trailing" secondItem="SVV-vk-gbg" secondAttribute="trailing" id="URR-do-ikT"/>
+                            <constraint firstItem="Lyj-1x-s7T" firstAttribute="centerY" secondItem="Dwj-L0-GxB" secondAttribute="centerY" id="s2x-gt-fib"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="SVV-vk-gbg"/>
                     </view>

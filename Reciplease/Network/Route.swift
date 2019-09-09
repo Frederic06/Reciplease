@@ -20,8 +20,7 @@ final class Route {
         guard let urlString = adress.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) else { return nil}
         
         guard let url = URL(string: urlString) else { return nil }
-        
-        print(url)
+
         return url
     }
 }

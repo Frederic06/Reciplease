@@ -23,7 +23,7 @@ final class IngredientListTableDataSource: NSObject, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ingredientCell", for: indexPath)
         let title = ingredient[indexPath.row]
-        cell.textLabel?.text = title
+        cell.textLabel?.text = "- \(title)"
         return cell
     }
 }

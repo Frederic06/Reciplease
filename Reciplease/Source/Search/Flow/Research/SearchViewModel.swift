@@ -59,13 +59,13 @@ final class SearchViewModel {
     
     func viewDidLoad() {
         titleText?("Recipleased")
-        viewTitleText?("What's in your fridge")
-        placeHolderTextField?("Lemon, Cheese, Sausages")
+        viewTitleText?("What's in your fridge?")
+        placeHolderTextField?("Lemon, Cheese, Sausages ...")
         addButtonText?("Add")
-        yourIngredientsText?("Your ingredients :")
-        clearButtonText?("Clear")
+        yourIngredientsText?("Your ingredients")
+        clearButtonText?("Clear!")
         searchButtonHidden?(true)
-        searchButtonText?("Search for recipes")
+        searchButtonText?("Search for recipes!!")
     }
 
     func didPressAdd(ingredient: String) {
@@ -85,7 +85,7 @@ final class SearchViewModel {
         let ingredientListString = ingredientList.joined(separator:" ")
         isLoading?(true)
         
-       self.delegate?.didSelectIngredients(ingredients: ingredientListString)
+    self.delegate?.didSelectIngredients(ingredients: ingredientListString)
         
     }
 }

@@ -64,8 +64,9 @@ final class TabCoordinator: NSObject, TabCoordinatorType {
         //UITabBar has "viewControllers" propertie, which is an array of UIViewControllers of our tabBar, we set it to our array "items" which contains three VC that we created(Meteo/Translator/Converter)
         tabBarController.tabBar.barTintColor = #colorLiteral(red: 0.6633737683, green: 0.3532991111, blue: 0.09441826493, alpha: 1)
         tabBarController.tabBar.tintColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
-        tabBarController.tabBar.itemPositioning = .automatic
-        UITabBarItem.appearance().setTitleTextAttributes([ NSAttributedString.Key.font: UIFont(name: "Chalkduster", size: 15.0)! ], for: .normal)
+
+        
+    UITabBarItem.appearance().setTitleTextAttributes([ NSAttributedString.Key.font: UIFont(name: "Chalkduster", size: 15.0)! ], for: .normal)
         tabBarController.viewControllers = self.items
         //The first view is Translator
         tabBarController.selectedViewController  = self[.research]
@@ -99,7 +100,7 @@ final class TabCoordinator: NSObject, TabCoordinatorType {
         items[0].tabBarItem.titlePositionAdjustment = UIOffset(horizontal: 0, vertical: -16)
         
         items[1].tabBarItem = UITabBarItem(title: "Favorites", image: nil, tag: 1)
-        items[1].tabBarItem.titlePositionAdjustment = UIOffset(horizontal: 0, vertical: -15)
+        items[1].tabBarItem.titlePositionAdjustment = UIOffset(horizontal: 0, vertical: -16)
         
     }
 }

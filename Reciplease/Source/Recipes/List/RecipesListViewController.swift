@@ -26,45 +26,46 @@ final class RecipesListViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.hideKeyboardWhenTappedAround()
-        
-        self.activityIndicator.color = #colorLiteral(red: 0.8078431487, green: 0.02745098062, blue: 0.3333333433, alpha: 1)
-        self.activityIndicator.transform = CGAffineTransform(scaleX: 3, y: 3)
-        self.activityIndicator.hidesWhenStopped = true
-        
+
+        configureUI()
         
         self.recipesList.dataSource = recipeDataSource
         self.recipesList.delegate = recipeDataSource
         
         bind(to: viewModel)
         bind(to: recipeDataSource)
+
+        viewModel.viewDidLoad()
+    }
+    
+    private func configureUI() {
+        self.navigationController?.navigationBar.backgroundColor = #colorLiteral(red: 0.7063648105, green: 0.4434646964, blue: 0.2221123874, alpha: 1)
+        self.navigationItem.title = "Recipe list"
+        self.activityIndicator.startAnimating()
     }
     
     private func bind(to source: RecipesListDataSource) {
         source.didSelectRecipe = viewModel.didSelect
     }
-
+    
     private func bind(to viewModel: RecipesListViewModel) {
         
         viewModel.incomingRecipes = { [weak self] recipes in
-            print("Incoming Recipes")
             DispatchQueue.main.async {
-            self?.recipeDataSource.update(foundRecipes: recipes)
-            self?.recipesList.reloadData()
+                self?.recipeDataSource.update(foundRecipes: recipes)
+                self?.recipesList.reloadData()
             }
         }
         
         viewModel.isLoading = { [weak self] state in
-            print("Incoming State")
             switch state {
             case true:
                 self?.activityIndicator.startAnimating()
+                
             case false:
                 self?.activityIndicator.stopAnimating()
             }
-        }
-        
-        viewModel.output = { [weak self] text in
-            print(text)
+            
         }
     }
 }

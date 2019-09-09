@@ -35,6 +35,7 @@ final class SearchViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.hideKeyboardWhenTappedAround()
+        configureUI()
         self.ingredientsList.dataSource = ingredientListDataSource
 
 //          bind(to: viewModel)
@@ -44,19 +45,18 @@ final class SearchViewController: UIViewController {
         viewModel.viewDidLoad()
     }
     
+    private func configureUI() {
+        self.navigationController?.navigationBar.backgroundColor = #colorLiteral(red: 0.7063648105, green: 0.4434646964, blue: 0.2221123874, alpha: 1)
+        self.navigationItem.title = "Recipe search"
+    }
+    
     private func bind(to viewModel: SearchViewModel) {
-
-//        viewModel.titleText = { [weak self] text in
-//            self?.title = text
-//        }
-        
         viewModel.viewTitleText = { [weak self] text in
             self?.viewTitle.text = text
         }
         
         viewModel.addButtonText = { [weak self] text in
             self?.addButton.setTitle(text, for: .normal)
-            self?.addButton.setTitleColor(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1), for: .normal)
         }
         
         viewModel.placeHolderTextField = {
@@ -74,7 +74,6 @@ final class SearchViewController: UIViewController {
         
         viewModel.clearButtonText = { [weak self] text in
             self?.clearButton.setTitle(text, for: .normal)
-            self?.clearButton.setTitleColor(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1), for: .normal)
         }
         
         viewModel.searchButtonHidden = { [weak self] state in
@@ -83,7 +82,6 @@ final class SearchViewController: UIViewController {
         
         viewModel.searchButtonText = { [weak self] text in
             self?.searchRecipesButton.setTitle(text, for: .normal)
-            self?.searchRecipesButton.setTitleColor(.white, for: .normal)
         }
         
         viewModel.ingredients = { [weak self] item in

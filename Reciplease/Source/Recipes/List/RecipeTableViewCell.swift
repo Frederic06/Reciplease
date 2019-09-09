@@ -17,7 +17,7 @@ final class RecipeTableViewCell: UITableViewCell {
     
     private var recipe: RecipeItem? = nil {
         didSet {
-            if let image = recipe?.imageURLString.transformToImage() {
+            if let image = recipe?.imageURLString.transformURLToImage() {
                 self.backgroundView = UIImageView(image: image)
             }
             self.recipeTitle.text = recipe?.name
