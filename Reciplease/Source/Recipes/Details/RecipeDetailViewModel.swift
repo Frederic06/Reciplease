@@ -9,19 +9,15 @@
 import UIKit
 
 protocol RecipeDetaileViewModelType: class {
-    func didPressFavorite(recipe: RecipeItem)
-    func didUnselectFavorite(recipe: RecipeItem)
 }
 
 final class RecipeDetailViewModel {
     
+    private var repository: RecipeDetailRepositoryType
+    
     private var recipe: RecipeItem
     
     private weak var delegate: RecipeDetaileViewModelType?
-    
-    private var favoriteArray = [""]
-    
-    private var selected: Bool = false
     
     // MARK: - Output
     var incomingRecipe: ((RecipeItem) -> Void)?
@@ -29,35 +25,48 @@ final class RecipeDetailViewModel {
     var recipeImage: ((UIImage) -> Void)?
     
     var isFavorite: ((Bool) -> Void)?
+    
+    var recipeButton: ((String) -> Void)?
 
     // MARK: - Init
-    init(recipe: RecipeItem) {
+    init(recipe: RecipeItem, repository: RecipeDetailRepositoryType) {
         self.recipe = recipe
+        self.repository = repository
     }
     
     // MARK: - Methods
     
     func viewDidLoad() {
         incomingRecipe?(recipe)
+        recipeButton?("Get directions!!")
         guard let image = recipe.imageURLString.transformURLToImage() else { return }
         recipeImage?(image)
+        
+        repository.checkIfFavorite(recipeName: recipe.name) { (favoriteState) in
+            self.isFavorite?(favoriteState)
+        }
     }
 
-// MARK: - Input
+    // MARK: - Input
     
     func clickedOnFavoriteStar() {
-        delegate?.didPressFavorite(recipe: recipe)
-        let recipeObject = RecipeObject(context: AppDelegate.viewContext)
-        recipeObject.recipeImage = recipe.imageURLString
-        recipeObject.recipeName = recipe.name
-        recipeObject.recipeIngredients = recipe.ingredient as NSObject
-        try? AppDelegate.viewContext.save()
+        repository.checkIfFavorite(recipeName: recipe.name) { (favoriteState) in
+            switch favoriteState {
+            case true:
+                repository.removeFavorite(recipeName: recipe.name)
+                isFavorite?(false)
+            case false:
+                repository.addToFavorite(recipe: recipe)
+                isFavorite?(true)
+            }
+        }
     }
     
-    func unClickedOnFavoriteStar() {
-        delegate?.didUnselectFavorite(recipe: recipe)
+    func clickedOnDirectionButton() {
+        if let url = URL(string: recipe.url) {
+            UIApplication.shared.open(url)
+        }
     }
-
 }
 
 

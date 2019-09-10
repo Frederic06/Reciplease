@@ -19,6 +19,7 @@ struct Recipes: Decodable {
     struct RecipeProperties: Decodable {
         let label: String
         let image: String
+        let url: String
         let ingredientLines: [String]
     }
 }

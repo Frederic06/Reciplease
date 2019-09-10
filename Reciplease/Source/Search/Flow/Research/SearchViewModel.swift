@@ -79,7 +79,6 @@ final class SearchViewModel {
         searchButtonHidden?(true)
     }
     
-     // Comment vérifier si les ingrédients sont corrects avant de lancer l'appel?
     func didPressSearchForRecipes() {
         
         let ingredientListString = ingredientList.joined(separator:" ")

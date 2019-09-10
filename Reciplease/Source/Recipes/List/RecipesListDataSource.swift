@@ -13,12 +13,17 @@ import UIKit
 
 final class RecipesListDataSource: NSObject, UITableViewDataSource, UITableViewDelegate {
     
+    private var favoriteState: Bool?
     
     private var recipes: [RecipeItem] = []
     var didSelectRecipe: ((RecipeItem) -> Void)?
     
     func update (foundRecipes: [RecipeItem]) {
         self.recipes = foundRecipes
+    }
+    
+    func updateFavoriteState(state: Bool){
+        self.favoriteState = state
     }
     
     // MARK: - DataSource

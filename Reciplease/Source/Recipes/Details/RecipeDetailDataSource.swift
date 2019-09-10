@@ -16,24 +16,7 @@ enum ReciipeItem {
 
 final class RecipeDetailDataSource: NSObject, UITableViewDataSource {
     
-    private var recipe: RecipeItem = RecipeItem(name: "", imageURLString: "", ingredient: [])
-
-    enum Items {
-        case name(String)
-        case title(String)
-        case ingredients(String)
-    }
-
-    var items: [Items] = []
-
-    func updaate(with recipes: [ReciipeItem]) {
-//        self.items = recipes.map { recipe in
-//            switch recipe {
-//            case .title(let title):
-//                return .title(title)
-//            }
-//        }
-    }
+    private var recipe: RecipeItem?
     
     func update (with recipe: RecipeItem) {
         self.recipe = recipe
@@ -50,7 +33,8 @@ final class RecipeDetailDataSource: NSObject, UITableViewDataSource {
         case 1:
             return 1
         case 2:
-            return recipe.ingredient.count
+            guard let numberOfIngredient = recipe?.ingredient.count else { return 0 }
+            return numberOfIngredient
         default:
             return 0
         }
@@ -62,7 +46,8 @@ final class RecipeDetailDataSource: NSObject, UITableViewDataSource {
         case 0:
             let cell = tableView.dequeueReusableCell(withIdentifier: "recipeName", for: indexPath)
             let attributes = [ NSAttributedString.Key.font: UIFont(name: "Chalkduster", size: 30.0)!, NSAttributedString.Key.foregroundColor: UIColor.white]
-            let title = NSAttributedString(string: recipe.name, attributes: attributes)
+            guard let recipeName = recipe?.name else { return cell}
+            let title = NSAttributedString(string: recipeName, attributes: attributes)
             cell.textLabel?.attributedText = title
             cell.textLabel?.textAlignment = .center
             return cell
@@ -75,8 +60,8 @@ final class RecipeDetailDataSource: NSObject, UITableViewDataSource {
             
         case 2:
             let ingredientCell = tableView.dequeueReusableCell(withIdentifier: "ingredientCell", for: indexPath)
-            let title = recipe.ingredient[indexPath.row]
-            ingredientCell.textLabel?.text = "- \(title)"
+            guard let recipeIngredient = recipe?.ingredient[indexPath.row] else { return ingredientCell}
+            ingredientCell.textLabel?.text = "- \(recipeIngredient)"
             ingredientCell.textLabel?.textColor = UIColor.white
             return ingredientCell
         default:

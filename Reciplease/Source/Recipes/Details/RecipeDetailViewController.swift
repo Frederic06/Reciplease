@@ -15,6 +15,8 @@ final class RecipeDetailViewController: UIViewController {
     
     @IBOutlet weak var recipeDescription: UITableView!
     
+    @IBOutlet weak var directionButton: UIButton!
+    
     // MARK: - Properties
     var viewModel: RecipeDetailViewModel!
     
@@ -24,9 +26,8 @@ final class RecipeDetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.hideKeyboardWhenTappedAround()
-        
         configureUI()
-        unselectedStar()
+        
         self.recipeDescription.dataSource = recipeDetailDataSource
         
         bind(to: viewModel)
@@ -40,9 +41,7 @@ final class RecipeDetailViewController: UIViewController {
     
     private func configureUI() {
         self.navigationController?.navigationBar.backgroundColor = #colorLiteral(red: 0.7063648105, green: 0.4434646964, blue: 0.2221123874, alpha: 1)
-        let button = UIBarButtonItem(barButtonSystemItem: .bookmarks, target: self, action: #selector(didPressFavorite))
-         self.navigationItem.setRightBarButton(button, animated: false)
-        self.navigationItem.rightBarButtonItem = button
+        setStar(favorite: true)
         self.navigationItem.title = "Recipe detail"
     }
     
@@ -58,30 +57,31 @@ final class RecipeDetailViewController: UIViewController {
         }
         
         viewModel.isFavorite = { [weak self] state in
-            switch state {
-            case true:
-                self?.selectedStar()
-            case false:
-                self?.unselectedStar()
-            }
-
+            self?.setStar(favorite: state)
+        }
+        
+        viewModel.recipeButton = { [weak self] text in
+            self?.directionButton.setTitle(text, for: .normal)
         }
     }
-//        viewModel.favoriteState = { [weak self] state in
-////            self?.favoriteBarItem // updtae ou appeleer une fonction qui le fait en fonction du state
-//        }
     
-    
-    private func selectedStar() {
-        let button = UIBarButtonItem(image: UIImage(named: "UnselectedStar"), style: .done, target: self, action: #selector(didPressFavorite))
-        self.navigationItem.rightBarButtonItem = button
+    private func setStar(favorite: Bool) {
+        guard let selectedStar = UIImage(named: "selectedStar") else { return }
+        guard let unselectedStar = UIImage(named: "unselectedStar") else { return }
+        var star: UIImage
+        
+        switch favorite {
+        case true:
+            star = selectedStar
+        case false:
+            star = unselectedStar
+        }
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: star, style: .done, target: self, action: #selector(didPressFavorite))
     }
-    
-    private func unselectedStar() {
-        let button = UIBarButtonItem(image: UIImage(named: "SelectedStar"), style: .done, target: self, action: #selector(didPressFavorite))
-        self.navigationItem.rightBarButtonItem = button
-    }
-    
     // MARK: - Actions
+    
+    @IBAction func getDirectionsButton(_ sender: UIButton) {
+        viewModel.clickedOnDirectionButton()
+    }
     
 }

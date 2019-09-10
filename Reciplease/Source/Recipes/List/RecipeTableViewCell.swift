@@ -8,12 +8,17 @@
 
 import UIKit
 
+
 final class RecipeTableViewCell: UITableViewCell {
     
     
     @IBOutlet weak var recipeTitle: UILabel!
     
     @IBOutlet weak var recipeIngredients: UILabel!
+ 
+    private let selectedStar = UIImage(named: "selectedStar")
+    
+    private let unSelectedStar = UIImage(named: "unSelectedStar")
     
     private var recipe: RecipeItem? = nil {
         didSet {
@@ -22,7 +27,10 @@ final class RecipeTableViewCell: UITableViewCell {
             }
             self.recipeTitle.text = recipe?.name
             self.recipeIngredients.text = recipe?.ingredient.joined(separator: ", ")
+
         }
+    }
+    @IBAction func didPressFavoriteStarButton(_ sender: UIButton) {
     }
     
     func updateCell(with recipe: RecipeItem) {

@@ -7,9 +7,11 @@
 //
 
 import Foundation
+import CoreData
 
 struct RecipeItem {
     let name: String
     let imageURLString: String
+    let url: String
     let ingredient: [String]
 }

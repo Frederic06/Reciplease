@@ -48,9 +48,9 @@ final class RecipeRepository: RecipeRepositoryType {
                 switch result {
                 case .success(value: let recipeItems):
                     let result: [RecipeItem] = recipeItems.hits.map { return RecipeItem(name: $0.recipe.label,
-                                                                                        imageURLString: $0.recipe.image,
+                                                                                        imageURLString: $0.recipe.image, url: $0.recipe.url,
                                                                                         ingredient: $0.recipe.ingredientLines.map { $0}) }
-                    
+                   
                     success(.success(value: result))
                     
                 case .error(error: let error):
@@ -64,9 +64,8 @@ final class RecipeRepository: RecipeRepositoryType {
             
             guard let recipes = try? AppDelegate.viewContext.fetch(request) else { return}
             let recipeItem : [RecipeItem] = recipes.map  { return RecipeItem(name: $0.recipeName!,
-                                                                             imageURLString: $0.recipeImage!,
-                                                                             ingredient: [""])
-                
+                                                                             imageURLString: $0.recipeImage ?? "", url: $0.recipeURL ?? "",
+                                                                             ingredient: ($0.recipeIngredients?.components(separatedBy: "@") ?? [""]) )
             }
             success(.success(value: recipeItem))
         }

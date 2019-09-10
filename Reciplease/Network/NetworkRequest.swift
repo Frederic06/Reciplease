@@ -41,24 +41,3 @@ final class NetworkRequest: NetworkRequestType {
     }
         
 }
-//    func request<Model: Codable>(_ url: String, completion: @escaping (Model?, Error?) -> Void) {
-//        AF.request(url).responseDecodable { (response: DataResponse<Model>) in
-//            if case .failure(let error) = response.result {
-//                // Dans le cas d'erreur
-//                return completion(nil, error)
-//            }
-//
-//            let statusCode = response.response?.statusCode
-//
-//            if statusCode == 401 {
-//                return completion(nil, NSError())
-//            }
-//            guard case .success(let result) = response.result else {
-//                //Erreur improbable
-//                return
-//            }
-//            completion(result, nil)
-//
-//        }
-//    }
-

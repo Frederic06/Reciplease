@@ -11,6 +11,5 @@ import CoreData
 
 
 public class RecipeObject: NSManagedObject {
-
 }
 

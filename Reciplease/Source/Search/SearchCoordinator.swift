@@ -44,10 +44,10 @@ final class SearchCoordinator {
         presenter.pushViewController(viewController, animated: true)
     }
     
-    //    private func showAlert(for type: AlertType) {
-    //        let alert = screens.createAlert(for: type)
-    //        presenter.show(alert!, sender: nil)
-    //    }
+        private func showAlert(for type: AlertType) {
+            let alert = screens.createAlert(for: type)
+            presenter.show(alert!, sender: nil)
+        }
 }
 
 extension SearchCoordinator: ResearchViewModelDelegate {
@@ -77,17 +77,7 @@ extension SearchCoordinator: RecipesListViewModelDelegate {
 }
 
 extension SearchCoordinator: RecipeDetaileViewModelType {
-    
-    func didPressFavorite(recipe: RecipeItem) {
-        let recipeObject = RecipeObject(context: AppDelegate.viewContext)
-        recipeObject.recipeImage = recipe.imageURLString
-        recipeObject.recipeName = recipe.name
-        print(recipeObject)
-        try? AppDelegate.viewContext.save()
-    }
-    
-    func didUnselectFavorite(recipe: RecipeItem) {
-    }
+
 }
 
 
