@@ -52,7 +52,8 @@ final class RecipeDetailViewController: UIViewController {
             self?.recipeDescription.reloadData()
         }
         
-        viewModel.recipeImage = { [weak self] image in
+        viewModel.recipeImage = { [weak self] imageURL in
+            guard let image = imageURL.transformURLToImage() else { return }
             self?.recipeImage.image = image
         }
         

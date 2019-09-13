@@ -78,7 +78,6 @@ final class TabCoordinator: NSObject, TabCoordinatorType {
     func start() {
         presenter.rootViewController = tabBarController
         showResearch()
-        
     }
     
     // MARK: - Private
@@ -101,7 +100,6 @@ final class TabCoordinator: NSObject, TabCoordinatorType {
         
         items[1].tabBarItem = UITabBarItem(title: "Favorites", image: nil, tag: 1)
         items[1].tabBarItem.titlePositionAdjustment = UIOffset(horizontal: 0, vertical: -16)
-        
     }
 }
 

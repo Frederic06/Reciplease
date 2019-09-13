@@ -53,8 +53,6 @@ final class SearchViewModel {
     
     var searchButtonText: ((String) -> Void)?
 
-    var isLoading: ((Bool) -> Void)?
-
     // MARK: - Input
     
     func viewDidLoad() {
@@ -82,9 +80,8 @@ final class SearchViewModel {
     func didPressSearchForRecipes() {
         
         let ingredientListString = ingredientList.joined(separator:" ")
-        isLoading?(true)
         
-    self.delegate?.didSelectIngredients(ingredients: ingredientListString)
+        self.delegate?.didSelectIngredients(ingredients: ingredientListString)
         
     }
 }

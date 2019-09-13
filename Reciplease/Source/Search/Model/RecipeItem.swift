@@ -9,9 +9,13 @@
 import Foundation
 import CoreData
 
-struct RecipeItem {
+struct RecipeItem: Equatable {
     let name: String
     let imageURLString: String
     let url: String
     let ingredient: [String]
+    
+    static func ==(lhs: RecipeItem, rhs: RecipeItem) -> Bool {
+        return lhs.name == rhs.name && lhs.imageURLString == rhs.imageURLString && lhs.url == rhs.url && lhs.ingredient == rhs.ingredient
+    }
 }

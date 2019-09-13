@@ -20,31 +20,20 @@ class RecipesListViewModel {
     
     private var repository: RecipeRepositoryType
     
+    private var ingredients: String
+    
     private var recipes: [RecipeItem] = [] {
         didSet {
             incomingRecipes?(recipes)
-            isLoading?(false)
         }
     }
 
     // MARK: - Init
 
     init(ingredients: String, delegate: RecipesListViewModelDelegate, repository: RecipeRepositoryType) {
-        isLoading?(true)
         self.delegate = delegate
         self.repository = repository
-        repository.getRecipes(ingredients: ingredients,
-                                success: { [weak self] recipes in
-                                    switch recipes {
-                                    case .success(value: let recipeArray):
-                                        self?.recipes = recipeArray
-                                    case .error:
-                                        print("error")
-                                    }
-
-            }, onError: { [weak self] error in
-                print(error)
-        })
+        self.ingredients = ingredients
     }
     // MARK: - Output
 
@@ -52,12 +41,26 @@ class RecipesListViewModel {
     
     var isLoading: ((Bool) -> Void)?
     
-    var outlet: ((String) -> Void)?
-    
     // MARK: - Methods
     
     func viewDidLoad() {
+        isLoading?(true)
+        
+        repository.getRecipes(ingredients: ingredients,
+                              success: { [weak self] recipes in
+                                switch recipes {
+                                case .success(value: let
+                                    recipeArray):
+                                    self?.recipes = recipeArray
+                                    self?.isLoading?(false)
+                                case .error:
+                                    print("error")
+                                }
+            }, onError: { [weak self] error in
+                print(error)
+        })
         incomingRecipes?(recipes)
+        
     }
     
     func didSelect(recipe: RecipeItem) {

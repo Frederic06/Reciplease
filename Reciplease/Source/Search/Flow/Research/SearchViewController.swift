@@ -90,15 +90,6 @@ final class SearchViewController: UIViewController {
                 self?.ingredientsList.reloadData()
             }
         }
-
-        viewModel.isLoading = { [weak self] state in
-            switch state {
-            case true:
-                self?.activityIndicator.startAnimating()
-            case false:
-                self?.activityIndicator.stopAnimating()
-            }
-        }
     }
     
     private func bind(to source: IngredientListTableDataSource) {

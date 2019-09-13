@@ -22,7 +22,7 @@ final class RecipeDetailViewModel {
     // MARK: - Output
     var incomingRecipe: ((RecipeItem) -> Void)?
     
-    var recipeImage: ((UIImage) -> Void)?
+    var recipeImage: ((String) -> Void)?
     
     var isFavorite: ((Bool) -> Void)?
     
@@ -39,8 +39,7 @@ final class RecipeDetailViewModel {
     func viewDidLoad() {
         incomingRecipe?(recipe)
         recipeButton?("Get directions!!")
-        guard let image = recipe.imageURLString.transformURLToImage() else { return }
-        recipeImage?(image)
+        recipeImage?(recipe.imageURLString)
         
         repository.checkIfFavorite(recipeName: recipe.name) { (favoriteState) in
             self.isFavorite?(favoriteState)

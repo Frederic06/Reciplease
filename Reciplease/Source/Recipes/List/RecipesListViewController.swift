@@ -21,11 +21,9 @@ final class RecipesListViewController: UIViewController {
     
     private var recipeDataSource = RecipesListDataSource()
 
-
     // MARK: - ViewLifeCycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.hideKeyboardWhenTappedAround()
 
         configureUI()
         
@@ -41,7 +39,8 @@ final class RecipesListViewController: UIViewController {
     private func configureUI() {
         self.navigationController?.navigationBar.backgroundColor = #colorLiteral(red: 0.7063648105, green: 0.4434646964, blue: 0.2221123874, alpha: 1)
         self.navigationItem.title = "Recipe list"
-        self.activityIndicator.startAnimating()
+        self.activityIndicator.hidesWhenStopped = true
+        self.hideKeyboardWhenTappedAround()
     }
     
     private func bind(to source: RecipesListDataSource) {
@@ -58,14 +57,14 @@ final class RecipesListViewController: UIViewController {
         }
         
         viewModel.isLoading = { [weak self] state in
-            switch state {
-            case true:
-                self?.activityIndicator.startAnimating()
-                
-            case false:
-                self?.activityIndicator.stopAnimating()
+                switch state {
+                case true:
+                    self?.recipesList.isHidden = true
+                    self?.activityIndicator.startAnimating()
+                case false:
+                    self?.recipesList.isHidden = false
+                    self?.activityIndicator.stopAnimating()
             }
-            
         }
     }
 }

@@ -11,19 +11,18 @@ import UIKit
 
 final class RecipeTableViewCell: UITableViewCell {
     
-    
     @IBOutlet weak var recipeTitle: UILabel!
     
     @IBOutlet weak var recipeIngredients: UILabel!
  
-    private let selectedStar = UIImage(named: "selectedStar")
-    
-    private let unSelectedStar = UIImage(named: "unSelectedStar")
+    @IBOutlet weak var recipeImage: UIImageView!
+
+    @IBOutlet weak var gradientView: GradientView!
     
     private var recipe: RecipeItem? = nil {
         didSet {
             if let image = recipe?.imageURLString.transformURLToImage() {
-                self.backgroundView = UIImageView(image: image)
+                self.recipeImage.image = image
             }
             self.recipeTitle.text = recipe?.name
             self.recipeIngredients.text = recipe?.ingredient.joined(separator: ", ")
@@ -35,5 +34,38 @@ final class RecipeTableViewCell: UITableViewCell {
     
     func updateCell(with recipe: RecipeItem) {
         self.recipe = recipe
+    }
+
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        recipeTitle.text = nil
+        recipeIngredients.text = nil
+        recipeImage.image = nil
+    }
+
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        setupGradientView()
+    }
+
+    private func setupGradientView() {
+        let endColor = UIColor.black
+        let startColor = UIColor.clear
+        gradientView.updateGradient(with: .vertical, colors: startColor, endColor)
+    }
+}
+
+final class GradientView: UIView {
+
+    lazy var gradientLayer = layer as? LinearGradientLayer
+
+    override class var layerClass: AnyClass {
+        return LinearGradientLayer.self
+    }
+
+    func updateGradient(with direction: LinearGradientLayer.Direction, colors: UIColor...) {
+        gradientLayer?.direction = direction
+        gradientLayer?.colors = colors.map { $0.cgColor}
+        gradientLayer?.setNeedsDisplay()
     }
 }
