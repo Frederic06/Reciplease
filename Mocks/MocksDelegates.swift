@@ -9,12 +9,12 @@
 @testable import Reciplease
 import XCTest
 
-class MockSearchCoordinator: ResearchViewModelDelegate, RecipesListViewModelDelegate {
-    
-    func didChoseRecipe(recipe: RecipeItem) {
+class MockSearchCoordinator: SearchViewModelDelegate, RecipesListViewModelDelegate {
+    func noRecipe(for type: AlertType) {
     }
     
-    func alertNoRecipe(message: Message) {
+    
+    func didChoseRecipe(recipe: RecipeItem) {
     }
     
     func didSelectIngredients(ingredients: String) {

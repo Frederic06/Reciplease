@@ -19,9 +19,11 @@ class RecipeDetailViewModelTests: XCTestCase {
         let recipe = RecipeItem(name: "Spaghetti Bolognese", imageURLString: "https://www.papillesetpupilles.fr/wp-content/uploads/2013/08/Spaghetti-Bolognese-1150x0.jpg", url: "https://www.papillesetpupilles.fr/2013/08/spaghetti-bolognese.html", ingredient: ["spaghetti", "tomato sauce", "beef", "sal", "pepper"])
         
         let repository = MockRecipeDetailRepository()
-//
-        let viewModel = RecipeDetailViewModel(recipe: recipe, repository: repository)
-//
+        
+        let alertDelegate = MockAlertDelegate()
+        
+        let viewModel = RecipeDetailViewModel(recipe: recipe, repository: repository, alertDelegate: alertDelegate)
+        
         let expectation1 = self.expectation(description: "Returned recipeButton")
         
         viewModel.recipeButton = { text in
@@ -31,40 +33,33 @@ class RecipeDetailViewModelTests: XCTestCase {
         
         viewModel.viewDidLoad()
         waitForExpectations(timeout: 1.0, handler: nil)
-        
-        
     }
     
     func testGivenARecipeDetailViewModelWhenViewDidLoadThenPropertiesAreCorrecltyReturned() {
         
-        let recipe = RecipeItem(name: "Spaghetti Bolognese", imageURLString: "https://www.papillesetpupilles.fr/wp-content/uploads/2013/08/Spaghetti-Bolognese-1150x0.jpg", url: "https://www.papillesetpupilles.fr/2013/08/spaghetti-bolognese.html", ingredient: ["spaghetti", "tomato sauce", "beef", "sal", "pepper"])
+        let expectedResult = RecipeItem(name: "Spaghetti Bolognese", imageURLString: "https://www.papillesetpupilles.fr/wp-content/uploads/2013/08/Spaghetti-Bolognese-1150x0.jpg", url: "https://www.papillesetpupilles.fr/2013/08/spaghetti-bolognese.html", ingredient: ["spaghetti", "tomato sauce", "beef", "sal", "pepper"])
         
         let repository = MockRecipeDetailRepository()
+        
+        let alertDelegate = MockAlertDelegate()
         //
-        let viewModel = RecipeDetailViewModel(recipe: recipe, repository: repository)
+        let viewModel = RecipeDetailViewModel(recipe: expectedResult, repository: repository, alertDelegate: alertDelegate)
         //
         let expectation1 = self.expectation(description: "Returned incomingRecipe")
         
         let expectation2 = self.expectation(description: "Returned recipeImage")
-//
-//                let expectation3 = self.expectation(description: "Returned isFavorite")
-        
         
         viewModel.incomingRecipe = { recipe in
-            XCTAssertEqual(recipe, recipe)
+            XCTAssertEqual(recipe, expectedResult)
             expectation1.fulfill()
         }
         
         viewModel.recipeImage = { imageURL in
-            XCTAssertEqual(imageURL, recipe.imageURLString)
+            XCTAssertEqual(imageURL, expectedResult.imageURLString)
             expectation2.fulfill()
         }
-//
-//        var isFavorite: ((Bool) -> Void)?
         
         viewModel.viewDidLoad()
         waitForExpectations(timeout: 1.0, handler: nil)
     }
-    
-
 }

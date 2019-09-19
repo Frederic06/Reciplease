@@ -13,19 +13,19 @@ class SearchViewModelTests: XCTestCase {
     
     func testGivenASearchViewModelWhenViewDidLoadThenInitialPropertiesAreCorrecltyReturned() {
         
-            let delegate: ResearchViewModelDelegate? = MockSearchCoordinator()
-
-            let viewModel = SearchViewModel(delegate: delegate)
+        let delegate: SearchViewModelDelegate? = MockSearchCoordinator()
+        
+        let viewModel = SearchViewModel(delegate: delegate, alertDelegate: nil)
         
         let expectation1 = self.expectation(description: "Returned titleText")
         let expectation2 = self.expectation(description: "Returned viewTitleText")
         let expectation3 = self.expectation(description: "Returned placeHolderTextField")
         let expectation4 = self.expectation(description: "Returned addButtonText")
         let expectation5 = self.expectation(description: "Returned yourIngredientsText")
-                let expectation6 = self.expectation(description: "Returned clearButtonText")
-                let expectation7 = self.expectation(description: "Returned searchButtonHidden")
-                let expectation8 = self.expectation(description: "Returned searchButtonText")
-
+        let expectation6 = self.expectation(description: "Returned clearButtonText")
+        let expectation7 = self.expectation(description: "Returned searchButtonHidden")
+        let expectation8 = self.expectation(description: "Returned searchButtonText")
+        
         viewModel.titleText = { text in
             XCTAssertEqual(text, "Recipleased")
             expectation1.fulfill()
@@ -47,7 +47,7 @@ class SearchViewModelTests: XCTestCase {
         }
         
         viewModel.yourIngredientsText = { text in
-            XCTAssertEqual(text, "Your ingredients")
+            XCTAssertEqual(text, "Your ingredients :")
             expectation5.fulfill()
         }
         

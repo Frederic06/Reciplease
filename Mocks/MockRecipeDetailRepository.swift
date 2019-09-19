@@ -10,16 +10,11 @@ import Foundation
 
 final class MockRecipeDetailRepository: RecipeDetailRepositoryType {
     func addToFavorite(recipe: RecipeItem) {
-        
     }
     
     func checkIfFavorite(recipeName: String, completion: (Bool) -> Void) {
-        
     }
     
     func removeFavorite(recipeName: String) {
-        
     }
-    
-    
 }
