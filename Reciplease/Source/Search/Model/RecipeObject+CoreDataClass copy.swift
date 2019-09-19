@@ -9,7 +9,4 @@
 import Foundation
 import CoreData
 
-
-public class RecipeObject: NSManagedObject {
-}
-
+public class RecipeObject: NSManagedObject {}

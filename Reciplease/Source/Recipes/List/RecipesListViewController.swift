@@ -15,6 +15,7 @@ final class RecipesListViewController: UIViewController {
     @IBOutlet weak var recipesList: UITableView!
 
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
+    
     // MARK: - Properties
 
     var viewModel: RecipesListViewModel!
@@ -22,25 +23,27 @@ final class RecipesListViewController: UIViewController {
     private var recipeDataSource = RecipesListDataSource()
 
     // MARK: - ViewLifeCycle
+    
+    override func viewWillAppear(_ animated: Bool) {
+        viewModel.viewWillAppear()
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
 
         configureUI()
         
-        self.recipesList.dataSource = recipeDataSource
-        self.recipesList.delegate = recipeDataSource
+        recipesList.dataSource = recipeDataSource
+        recipesList.delegate = recipeDataSource
         
         bind(to: viewModel)
         bind(to: recipeDataSource)
-
-        viewModel.viewDidLoad()
     }
     
     private func configureUI() {
-        self.navigationController?.navigationBar.backgroundColor = #colorLiteral(red: 0.7063648105, green: 0.4434646964, blue: 0.2221123874, alpha: 1)
-        self.navigationItem.title = "Recipe list"
-        self.activityIndicator.hidesWhenStopped = true
-        self.hideKeyboardWhenTappedAround()
+        navigationController?.navigationBar.backgroundColor = #colorLiteral(red: 0.7063648105, green: 0.4434646964, blue: 0.2221123874, alpha: 1)
+        navigationItem.title = "Recipe list"
+        activityIndicator.hidesWhenStopped = true
+        hideKeyboardWhenTappedAround()
     }
     
     private func bind(to source: RecipesListDataSource) {
@@ -48,7 +51,6 @@ final class RecipesListViewController: UIViewController {
     }
     
     private func bind(to viewModel: RecipesListViewModel) {
-        
         viewModel.incomingRecipes = { [weak self] recipes in
             DispatchQueue.main.async {
                 self?.recipeDataSource.update(foundRecipes: recipes)

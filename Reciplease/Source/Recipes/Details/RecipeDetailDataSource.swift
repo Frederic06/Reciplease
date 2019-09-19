@@ -42,28 +42,27 @@ final class RecipeDetailDataSource: NSObject, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = UITableViewCell()
+        guard let recipe = self.recipe else {return cell}
+        
         switch indexPath.section {
         case 0:
-            let cell = tableView.dequeueReusableCell(withIdentifier: "recipeName", for: indexPath)
-            let attributes = [ NSAttributedString.Key.font: UIFont(name: "Chalkduster", size: 30.0)!, NSAttributedString.Key.foregroundColor: UIColor.white]
-            guard let recipeName = recipe?.name else { return cell}
-            let title = NSAttributedString(string: recipeName, attributes: attributes)
-            cell.textLabel?.attributedText = title
-            cell.textLabel?.textAlignment = .center
+            let cell = tableView.dequeueReusableCell(withIdentifier: "recipeName", for: indexPath)as! RecipeDetailTableViewCell
+            tableView.rowHeight = 250
+            cell.updateCell(with: recipe, caseType: .recipeName, row: indexPath.row)
             return cell
             
         case 1:
-            let ingredientTitleCell = tableView.dequeueReusableCell(withIdentifier: "ingredientTitle", for: indexPath)
-            ingredientTitleCell.textLabel?.text = "Ingredients"
-            ingredientTitleCell.textLabel?.textColor = UIColor.white
-            return ingredientTitleCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: "ingredientTitle", for: indexPath)as! RecipeDetailTableViewCell
+            tableView.rowHeight = 60
+            cell.updateCell(with: recipe, caseType: .ingredientTitle, row: indexPath.row)
+            return cell
             
         case 2:
-            let ingredientCell = tableView.dequeueReusableCell(withIdentifier: "ingredientCell", for: indexPath)
-            guard let recipeIngredient = recipe?.ingredient[indexPath.row] else { return ingredientCell}
-            ingredientCell.textLabel?.text = "- \(recipeIngredient)"
-            ingredientCell.textLabel?.textColor = UIColor.white
-            return ingredientCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: "ingredientCell", for: indexPath)as! RecipeDetailTableViewCell
+            tableView.rowHeight = 20
+            cell.updateCell(with: recipe, caseType: .ingredientCell, row: indexPath.row)
+            return cell
+
         default:
             print("Default Selected")
             
@@ -71,5 +70,6 @@ final class RecipeDetailDataSource: NSObject, UITableViewDataSource {
         return cell
     }
 }
+
 
 

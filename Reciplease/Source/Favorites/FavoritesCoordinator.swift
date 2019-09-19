@@ -8,11 +8,6 @@
 
 import UIKit
 
-//class Context {
-//    let theme: Theme
-//    let translator: Translator
-//}
-
 final class FavoritesCoordinator {
     
     // MARK: - Properties
@@ -35,13 +30,18 @@ final class FavoritesCoordinator {
     }
     
     private func showFavorites() {
-        let viewController = screens.createRecipesListViewController(ingredients: "", delegate: self, with: .favorite)
+        let viewController = screens.createRecipesListViewController(ingredients: "", delegate: self, alertDelegate: self, with: .favorite)
         presenter.viewControllers = [viewController]
     }
     
     private func showFavoritesDetail(recipe: RecipeItem) {
-        let viewController = screens.createRecipesDetailViewController(with: recipe)
+        let viewController = screens.createRecipesDetailViewController(with: recipe, alertDelegate: self)
         presenter.pushViewController(viewController, animated: true)
+    }
+    
+    private func showAlert(for type: AlertType) {
+        guard let alert = screens.createAlert(for: type) else {return}
+        presenter.visibleViewController?.present(alert, animated: true, completion: nil)
     }
 }
 
@@ -49,12 +49,10 @@ extension FavoritesCoordinator: RecipesListViewModelDelegate {
     func didChoseRecipe(recipe: RecipeItem) {
         showFavoritesDetail(recipe: recipe)
     }
-    
-    func alertNoRecipe(message: Message) {
-        print(message)
-    }
-    
 }
 
-
-
+extension FavoritesCoordinator: AlertDelegate {
+    func displayAlert(type: AlertType) {
+        showAlert(for: type)
+    }
+}

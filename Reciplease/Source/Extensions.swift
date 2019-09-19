@@ -24,6 +24,7 @@ extension StringProtocol {
     var firstUppercased: String {
         return prefix(1).uppercased() + dropFirst()
     }
+    
     var firstCapitalized: String {
         return String(prefix(1)).capitalized + dropFirst()
     }
@@ -34,10 +35,6 @@ extension String {
         guard let imageUrl = URL(string: self) else {return nil}
         let imageData = try! Data(contentsOf: imageUrl)
         guard let image = UIImage(data: imageData) else { return nil}
-        
         return image
     }
 }
-
-
-

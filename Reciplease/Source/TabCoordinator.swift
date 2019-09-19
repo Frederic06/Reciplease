@@ -13,9 +13,8 @@ enum ViewControllerItem: Int {
     case favorites = 1
 }
 
-
 // tabBar allow to transite between X Views (we have only 3). Because of navigation, we have to create a TabCoordinator
-// Its owns instances of Views, we have 3, we made an array with 3 UIViewControllers
+// Its owns instances of Views, we have 2, we made an array with 2 Navigation Controllers
 
 protocol TabCoordinatorType {
     var items: [UINavigationController] { get set }
@@ -24,7 +23,7 @@ protocol TabCoordinatorType {
 final class CustomNavigationController: UINavigationController {
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.navigationBar.backgroundColor = #colorLiteral(red: 0.2154502869, green: 0.2000230253, blue: 0.1958795488, alpha: 1)
+        self.navigationBar.backgroundColor = #colorLiteral(red: 0.6665837169, green: 0.4038853049, blue: 0.1849137843, alpha: 1)
     }
 }
 
@@ -81,8 +80,6 @@ final class TabCoordinator: NSObject, TabCoordinatorType {
     }
     
     // MARK: - Private
-    // Est-ce normal que je sois obligé de spécifier à Xcode
-    // as! UINavigationController
     private func showResearch() {
         researchCoordinator = SearchCoordinator(presenter: self[.research] as! UINavigationController, screens: screens)
         researchCoordinator?.start()
@@ -135,16 +132,3 @@ extension TabCoordinator {
     }
 }
 
-//extension TabCoordinator: AlertDelegate {
-//    func displayAlert (title: String, message: String) {
-//
-//
-//        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
-//
-//        let yesButton = UIAlertAction(title: "Ok", style: .default, handler: {(_ action: UIAlertAction) -> Void in
-//        })
-//
-//        alert.addAction(yesButton)
-//        tabBarController.present(alert, animated: true)
-//    }
-//}

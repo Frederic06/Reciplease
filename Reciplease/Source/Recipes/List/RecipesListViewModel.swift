@@ -10,7 +10,6 @@ import Foundation
 
 protocol RecipesListViewModelDelegate: class {
     func didChoseRecipe(recipe: RecipeItem)
-    func alertNoRecipe(message: Message)
 }
 
 class RecipesListViewModel {
@@ -18,22 +17,28 @@ class RecipesListViewModel {
     // MARK: - Properties
     private weak var delegate: RecipesListViewModelDelegate?
     
+    private weak var alertDelegate: AlertDelegate?
+    
     private var repository: RecipeRepositoryType
     
-    private var ingredients: String
+    let route = Route()
     
     private var recipes: [RecipeItem] = [] {
         didSet {
+            guard recipes != [] else { self.alertDelegate?.displayAlert(type: .noRecipes); return}
             incomingRecipes?(recipes)
         }
     }
+    
+    private var ingredients: String
 
     // MARK: - Init
 
-    init(ingredients: String, delegate: RecipesListViewModelDelegate, repository: RecipeRepositoryType) {
+    init(ingredients: String, delegate: RecipesListViewModelDelegate, alertDelegate: AlertDelegate, repository: RecipeRepositoryType) {
         self.delegate = delegate
         self.repository = repository
         self.ingredients = ingredients
+        self.alertDelegate = alertDelegate
     }
     // MARK: - Output
 
@@ -41,23 +46,23 @@ class RecipesListViewModel {
     
     var isLoading: ((Bool) -> Void)?
     
-    // MARK: - Methods
-    
-    func viewDidLoad() {
+    func viewWillAppear() {
         isLoading?(true)
-        
-        repository.getRecipes(ingredients: ingredients,
-                              success: { [weak self] recipes in
+        guard let url = route.getURL(ingredients: ingredients) else { return }
+        repository.getRecipes(url: url, success: { [weak self] recipes in
+                                
                                 switch recipes {
+                                    
                                 case .success(value: let
                                     recipeArray):
                                     self?.recipes = recipeArray
                                     self?.isLoading?(false)
                                 case .error:
-                                    print("error")
+                                    self?.alertDelegate?.displayAlert(type: .networkError)
                                 }
             }, onError: { [weak self] error in
-                print(error)
+                self?.alertDelegate?.displayAlert(type: .networkError)
+                return
         })
         incomingRecipes?(recipes)
         

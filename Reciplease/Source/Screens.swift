@@ -8,7 +8,6 @@
 
 import UIKit
 
-// Class Screens instantiates ViewControllers, as well as ViewController parameters: le ViewModel
 final class Screens {
     
     let storyboard = UIStoryboard(name: "Main", bundle: Bundle(for: Screens.self))
@@ -17,10 +16,9 @@ final class Screens {
 // MARK: - Search
 
 extension Screens {
-    func createResearchViewController(delegate: ResearchViewModelDelegate?) -> UIViewController {
-        // For creating a view, we call instance of storyBoard, with identifier we cast with the type we want
+    func createResearchViewController(delegate: SearchViewModelDelegate?, alertDelegate: AlertDelegate?) -> UIViewController {
         let viewController = storyboard.instantiateViewController(withIdentifier: "ResearchVC") as! SearchViewController
-        let viewModel = SearchViewModel(delegate: delegate)
+        let viewModel = SearchViewModel(delegate: delegate, alertDelegate: alertDelegate)
         viewController.viewModel = viewModel
         return viewController
     }
@@ -34,20 +32,18 @@ enum RecipeListType {
 }
 
 extension Screens {
-    func createRecipesListViewController(ingredients: String, delegate: RecipesListViewModelDelegate, with listType: RecipeListType) -> UIViewController {
-        // Same VC for RecipesList or FavoriteList (so only one UIViewController in Storyboard -> One ID), differs only where the datas come from : API in the case of search, data persistence in case of favorite
+    func createRecipesListViewController(ingredients: String, delegate: RecipesListViewModelDelegate, alertDelegate: AlertDelegate, with listType: RecipeListType) -> UIViewController {
         let viewController = storyboard.instantiateViewController(withIdentifier: "RecipesListViewController") as! RecipesListViewController
         switch listType {
         case .favorite:
             let network = NetworkRequest()
             let repository = RecipeRepository(requestType: .persistence, network: network)
-            let viewModel = RecipesListViewModel(ingredients: ingredients, delegate: delegate, repository: repository)
+            let viewModel = RecipesListViewModel(ingredients: ingredients, delegate: delegate, alertDelegate: alertDelegate, repository: repository)
             viewController.viewModel = viewModel
-            
         case .search:
             let network = NetworkRequest()
             let repository = RecipeRepository(requestType: .network, network: network)
-            let viewModel = RecipesListViewModel(ingredients: ingredients, delegate: delegate, repository: repository)
+            let viewModel = RecipesListViewModel(ingredients: ingredients, delegate: delegate, alertDelegate: alertDelegate, repository: repository)
             viewController.viewModel = viewModel
         }
         return viewController
@@ -56,12 +52,11 @@ extension Screens {
 
 // MARK: - Recipe Details
 
-
 extension Screens {
-    func createRecipesDetailViewController(with recipe: RecipeItem) -> UIViewController {
+    func createRecipesDetailViewController(with recipe: RecipeItem, alertDelegate: AlertDelegate) -> UIViewController {
         let viewController = storyboard.instantiateViewController(withIdentifier: "RecipesDetailViewController") as! RecipeDetailViewController
         let repository = RecipeDetailRepository()
-        let viewModel = RecipeDetailViewModel(recipe: recipe, repository: repository)
+        let viewModel = RecipeDetailViewModel(recipe: recipe, repository: repository, alertDelegate: alertDelegate)
         viewController.viewModel = viewModel
         return viewController
     }
@@ -69,12 +64,12 @@ extension Screens {
 
 // MARK: - Alert
 
-
-enum AlertType {
-    case noRecipes(message: Message)
-}
 extension Screens {
     func createAlert(for type: AlertType) -> UIAlertController? {
-        return nil
+            let alert = Alert(type: type)
+            let alertController = UIAlertController(title: alert.title, message: alert.message, preferredStyle: .actionSheet)
+            let yesButton = UIAlertAction(title: "Ok", style: .cancel, handler: nil)
+            alertController.addAction(yesButton)
+            return alertController
     }
 }

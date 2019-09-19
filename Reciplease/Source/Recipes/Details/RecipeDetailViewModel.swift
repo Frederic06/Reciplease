@@ -8,16 +8,13 @@
 
 import UIKit
 
-protocol RecipeDetaileViewModelType: class {
-}
-
 final class RecipeDetailViewModel {
     
     private var repository: RecipeDetailRepositoryType
     
     private var recipe: RecipeItem
     
-    private weak var delegate: RecipeDetaileViewModelType?
+    private weak var alertDelegate: AlertDelegate?
     
     // MARK: - Output
     var incomingRecipe: ((RecipeItem) -> Void)?
@@ -29,9 +26,10 @@ final class RecipeDetailViewModel {
     var recipeButton: ((String) -> Void)?
 
     // MARK: - Init
-    init(recipe: RecipeItem, repository: RecipeDetailRepositoryType) {
+    init(recipe: RecipeItem, repository: RecipeDetailRepositoryType, alertDelegate: AlertDelegate) {
         self.recipe = recipe
         self.repository = repository
+        self.alertDelegate = alertDelegate
     }
     
     // MARK: - Methods

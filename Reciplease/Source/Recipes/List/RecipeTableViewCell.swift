@@ -14,9 +14,9 @@ final class RecipeTableViewCell: UITableViewCell {
     @IBOutlet weak var recipeTitle: UILabel!
     
     @IBOutlet weak var recipeIngredients: UILabel!
- 
+    
     @IBOutlet weak var recipeImage: UIImageView!
-
+    
     @IBOutlet weak var gradientView: GradientView!
     
     private var recipe: RecipeItem? = nil {
@@ -28,8 +28,6 @@ final class RecipeTableViewCell: UITableViewCell {
             self.recipeIngredients.text = recipe?.ingredient.joined(separator: ", ")
 
         }
-    }
-    @IBAction func didPressFavoriteStarButton(_ sender: UIButton) {
     }
     
     func updateCell(with recipe: RecipeItem) {
@@ -56,13 +54,15 @@ final class RecipeTableViewCell: UITableViewCell {
 }
 
 final class GradientView: UIView {
-
+    // Layer from UIView, considered as class LinearGradientLayer
     lazy var gradientLayer = layer as? LinearGradientLayer
 
+    // In order to use Layer, we have to specifize its class
     override class var layerClass: AnyClass {
         return LinearGradientLayer.self
     }
 
+    // Update gradient with its direction (enum) and [UIColor]
     func updateGradient(with direction: LinearGradientLayer.Direction, colors: UIColor...) {
         gradientLayer?.direction = direction
         gradientLayer?.colors = colors.map { $0.cgColor}

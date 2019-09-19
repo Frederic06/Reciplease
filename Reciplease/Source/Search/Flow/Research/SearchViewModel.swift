@@ -9,26 +9,33 @@
 
 import Foundation
 
-protocol ResearchViewModelDelegate: class {
+protocol SearchViewModelDelegate: class {
     func didSelectIngredients(ingredients: String)
+    func noRecipe(for type: AlertType)
 }
 
 final class SearchViewModel {
     
     // MARK: - Properties
-    private weak var delegate: ResearchViewModelDelegate?
+    
+    private weak var delegate: SearchViewModelDelegate?
+    
+    private weak var alertDelegate: AlertDelegate?
     
     private var item: RecipeItem?
     
     private var ingredientList: [String] = [] {
         didSet {
+            guard ingredientList != [] else {self.alertDelegate?.displayAlert(type: .noIngredient); return}
             ingredients?(ingredientList)
         }
     }
     
     // MARK: - Init
-    init(delegate: ResearchViewModelDelegate?) {
+    
+    init(delegate: SearchViewModelDelegate?, alertDelegate: AlertDelegate?) {
         self.delegate = delegate
+        self.alertDelegate = alertDelegate
     }
     
     // MARK: - Output
@@ -60,7 +67,7 @@ final class SearchViewModel {
         viewTitleText?("What's in your fridge?")
         placeHolderTextField?("Lemon, Cheese, Sausages ...")
         addButtonText?("Add")
-        yourIngredientsText?("Your ingredients")
+        yourIngredientsText?("Your ingredients :")
         clearButtonText?("Clear!")
         searchButtonHidden?(true)
         searchButtonText?("Search for recipes!!")
@@ -78,10 +85,8 @@ final class SearchViewModel {
     }
     
     func didPressSearchForRecipes() {
-        
         let ingredientListString = ingredientList.joined(separator:" ")
         
         self.delegate?.didSelectIngredients(ingredients: ingredientListString)
-        
     }
 }

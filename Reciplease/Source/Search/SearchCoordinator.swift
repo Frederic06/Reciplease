@@ -13,7 +13,6 @@ final class SearchCoordinator {
     // MARK: - Properties
     
     private let presenter: UINavigationController
-    
     private let screens: Screens
     
     // MARK: - Initializer
@@ -30,55 +29,44 @@ final class SearchCoordinator {
     }
     
     private func showResearch() {
-        let viewController = screens.createResearchViewController(delegate: self)
+        let viewController = screens.createResearchViewController(delegate: self, alertDelegate: self)
         presenter.viewControllers = [viewController]
     }
     
     private func showRecipes(ingredients: String) {
-        let viewController = screens.createRecipesListViewController(ingredients: ingredients, delegate: self, with: .search)
+        let viewController = screens.createRecipesListViewController(ingredients: ingredients, delegate: self, alertDelegate: self, with: .search)
         presenter.pushViewController(viewController, animated: true)
     }
     
     private func showRecipesDetail(recipe: RecipeItem) {
-        let viewController = screens.createRecipesDetailViewController(with: recipe)
+        let viewController = screens.createRecipesDetailViewController(with: recipe, alertDelegate: self)
         presenter.pushViewController(viewController, animated: true)
     }
     
-        private func showAlert(for type: AlertType) {
-            let alert = screens.createAlert(for: type)
-            presenter.show(alert!, sender: nil)
-        }
+    private func showAlert(for type: AlertType) {
+        guard let alert = screens.createAlert(for: type) else {return}
+        presenter.visibleViewController?.present(alert, animated: true, completion: nil)
+    }
 }
 
-extension SearchCoordinator: ResearchViewModelDelegate {
+extension SearchCoordinator: SearchViewModelDelegate {
+    func noRecipe(for type: AlertType) {
+        showAlert(for: type)
+    }
+    
     func didSelectIngredients(ingredients: String) {
         showRecipes(ingredients: ingredients)
     }
-    
-    func noRecipes(message: Message) {
-        //        showAlert(for: .noRecipes(message: message))
-        print("NO RECIPE")
-    }
-}
-
-struct Message {
-    let title: String
-    let content: String
 }
 
 extension SearchCoordinator: RecipesListViewModelDelegate {
     func didChoseRecipe(recipe: RecipeItem) {
-        
         showRecipesDetail(recipe: recipe)
     }
-    func alertNoRecipe(message: Message) {
-        print(message)
+}
+
+extension SearchCoordinator: AlertDelegate {
+    func displayAlert(type: AlertType) {
+        showAlert(for: type)
     }
 }
-
-extension SearchCoordinator: RecipeDetaileViewModelType {
-
-}
-
-
-

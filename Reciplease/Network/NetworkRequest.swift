@@ -35,9 +35,7 @@ final class NetworkRequest: NetworkRequestType {
     }
     
     private func decodeJSON<T>(type: T.Type, data: Data, completion: @escaping (T) -> Void) where T: Decodable {
-        
         guard let decodedData = try? jsonDecoder.decode(type.self, from: data) else { return }
         completion(decodedData)
     }
-        
 }

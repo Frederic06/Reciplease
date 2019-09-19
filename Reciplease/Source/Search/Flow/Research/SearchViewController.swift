@@ -11,6 +11,7 @@ import UIKit
 final class SearchViewController: UIViewController {
     
     // MARK: - Outlet
+    
     @IBOutlet weak var viewTitle: UILabel!
     
     @IBOutlet weak var textField: UITextField!
@@ -26,28 +27,28 @@ final class SearchViewController: UIViewController {
     @IBOutlet weak var searchRecipesButton: UIButton!
     
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
+    
     // MARK: - Properties
+    
     var viewModel: SearchViewModel!
     
-    private lazy var ingredientListDataSource = IngredientListTableDataSource()
+    private lazy var searchDataSource = SearchDataSource()
 
     // MARK: - ViewLifeCycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.hideKeyboardWhenTappedAround()
+        hideKeyboardWhenTappedAround()
         configureUI()
-        self.ingredientsList.dataSource = ingredientListDataSource
-
-//          bind(to: viewModel)
+        ingredientsList.dataSource = searchDataSource
+        
         bind(to: viewModel)
-
-        //          bind(to: datasource)
         viewModel.viewDidLoad()
     }
     
     private func configureUI() {
-        self.navigationController?.navigationBar.backgroundColor = #colorLiteral(red: 0.7063648105, green: 0.4434646964, blue: 0.2221123874, alpha: 1)
-        self.navigationItem.title = "Recipe search"
+        navigationController?.navigationBar.backgroundColor = #colorLiteral(red: 0.7063648105, green: 0.4434646964, blue: 0.2221123874, alpha: 1)
+        navigationItem.title = "Recipe search"
     }
     
     private func bind(to viewModel: SearchViewModel) {
@@ -86,16 +87,14 @@ final class SearchViewController: UIViewController {
         
         viewModel.ingredients = { [weak self] item in
             DispatchQueue.main.async {
-                self?.ingredientListDataSource.update(with: item)
+                self?.searchDataSource.update(with: item)
                 self?.ingredientsList.reloadData()
             }
         }
     }
     
-    private func bind(to source: IngredientListTableDataSource) {
-    }
-    
     // MARK: - Actions
+    
     @IBAction func addIngretientButton(_ sender: UIButton) {
         guard let ingredient = self.textField.text?.firstUppercased else { return }
         viewModel.didPressAdd(ingredient: ingredient)
@@ -108,5 +107,4 @@ final class SearchViewController: UIViewController {
     @IBAction func searchRecipesButton(_ sender: UIButton) {
         viewModel.didPressSearchForRecipes()
     }
-    
 }
