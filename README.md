@@ -19,4 +19,4 @@
   <li>MVVM-C pattern</li>
 </ul>
 
-![Alt Text](http://g.recordit.co/GgmkUDjzzV.gif)
+![Alt Text](http://g.recordit.co/pPiOEuvfeh.gif)
