@@ -15,6 +15,7 @@ protocol RecipesListViewModelDelegate: class {
 class RecipesListViewModel {
     
     // MARK: - Properties
+    
     private weak var delegate: RecipesListViewModelDelegate?
     
     private weak var alertDelegate: AlertDelegate?
@@ -23,10 +24,13 @@ class RecipesListViewModel {
     
     let route = Route()
     
-    private var recipes: [RecipeItem] = [] {
+    var recipes: [RecipeItem] = [] {
         didSet {
-            guard recipes != [] else { self.alertDelegate?.displayAlert(type: .noRecipes); return}
-            incomingRecipes?(recipes)
+            if !recipes.isEmpty {
+                incomingRecipes?(recipes)
+            } else {
+                alertDelegate?.displayAlert(type: .noRecipes)
+            }
         }
     }
     
@@ -50,22 +54,17 @@ class RecipesListViewModel {
         isLoading?(true)
         guard let url = route.getURL(ingredients: ingredients) else { return }
         repository.getRecipes(url: url, success: { [weak self] recipes in
-                                
                                 switch recipes {
-                                    
                                 case .success(value: let
                                     recipeArray):
                                     self?.recipes = recipeArray
                                     self?.isLoading?(false)
                                 case .error:
-                                    self?.alertDelegate?.displayAlert(type: .networkError)
+                                self?.alertDelegate?.displayAlert(type: .networkError)
                                 }
             }, onError: { [weak self] error in
                 self?.alertDelegate?.displayAlert(type: .networkError)
-                return
         })
-        incomingRecipes?(recipes)
-        
     }
     
     func didSelect(recipe: RecipeItem) {

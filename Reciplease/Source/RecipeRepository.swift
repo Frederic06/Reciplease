@@ -52,7 +52,8 @@ final class RecipeRepository: RecipeRepositoryType {
             let request: NSFetchRequest<RecipeObject> = RecipeObject.fetchRequest()
             guard let recipes = try? AppDelegate.viewContext.fetch(request) else { return}
             let recipeItem : [RecipeItem] = recipes.map  { return RecipeItem(name: $0.recipeName!,
-                                                                             imageURLString: $0.recipeImage ?? "", url: $0.recipeURL ?? "",
+                                                                             imageURLString: $0.recipeImage ?? "",
+                                                                             url: $0.recipeURL ?? "",
                                                                              ingredient: ($0.recipeIngredients?.components(separatedBy: "@") ?? [""]))
             }
             success(.success(value: recipeItem))

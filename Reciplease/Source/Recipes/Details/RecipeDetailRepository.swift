@@ -34,6 +34,7 @@ final class RecipeDetailRepository: RecipeDetailRepositoryType {
         recipeObject.recipeImage = recipe.imageURLString
         recipeObject.recipeName = recipe.name
         recipeObject.recipeIngredients = recipe.ingredient.joined(separator: "@")
+        recipeObject.recipeURL = recipe.url
         try? AppDelegate.viewContext.save()
     }
     
